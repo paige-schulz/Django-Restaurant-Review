@@ -1,0 +1,37 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Dine - {{ dine }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ dine }}</h2>
+    <ul class="ezu-button-list">
+        <li>
+            <a href="{{ dine.get_update_url }}"
+               class="button button-primary">
+                Edit Dine</a></li>
+        <li>
+            <a href="{{ dine.get_delete_url }}"
+               class="button button-primary">
+                Delete Dine</a></li>
+    </ul>
+
+    <section>
+        <table>
+            <tr>
+                <th>Date at Restaurant:</th>
+                <td>{{ dine.date }}</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h3>Locations</h3>
+        <a href="{{ location.get_absolute_url }}">{{ location }}</a>
+    </section>
+    <section>
+        <h3>Reviewer</h3>
+        <a href="{{ reviewer.get_absolute_url }}">{{ reviewer }}</a>
+    </section>
+{% endblock %}

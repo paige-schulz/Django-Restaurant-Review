@@ -1,0 +1,17 @@
+{% extends 'restaurantreview/base.html' %}
+{% block title %}
+    Recipe List
+{% endblock %}
+
+{% block content %}
+    <h1>Recipes</h1>
+    <ol>
+        {% for recipe in recipe_list %}
+            <li>
+                <a href="">{{ recipe }}</a>
+            </li>
+        {% empty %}
+            <li><em> There are no recipes.</em></li>
+        {% endfor %}
+    </ol>
+{% endblock %}

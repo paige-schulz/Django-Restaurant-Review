@@ -1,0 +1,56 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Location - {{ location }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ location }}</h2>
+    <ul class="ezu-button-list">
+        <li>
+            <a href="{{ location.get_update_url }}"
+               class="button button-primary">
+                Edit Location</a></li>
+        <li>
+            <a href="{{ location.get_delete_url }}"
+               class="button button-primary">
+                Delete Location</a></li>
+    </ul>
+
+    <section>
+        <table>
+            <tr>
+                <th>Street Number:</th>
+                <td>{{ location.street_number }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Street Name:</th>
+                <td>{{ location.street_name }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>City:</th>
+                <td>{{ location.city }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Zipcode:</th>
+                <td>{{ location.zipcode }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>State:</th>
+                <td>{{ location.state }}</td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <h3>Restaurant</h3>
+        <a href="{{ restaurant.get_absolute_url }}">{{ restaurant }}</a>
+    </section>
+{% endblock %}

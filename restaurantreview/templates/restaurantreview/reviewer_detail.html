@@ -1,0 +1,69 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Reviewer - {{ reviewer }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ reviewer }}</h2>
+    <ul class="ezu-button-list">
+        <li>
+            <a href="{{ reviewer.get_update_url }}"
+               class="button button-primary">
+                Edit Reviewer</a></li>
+        <li>
+            <a href="{{ reviewer.get_delete_url }}"
+               class="button button-primary">
+                Delete Reviewer</a></li>
+    </ul>
+
+    <section>
+        <table>
+            <tr>
+                <th>First Name:</th>
+                <td>{{ reviewer.first_name }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Last Name:</th>
+                <td>{{ reviewer.last_name }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Email:</th>
+                <td>{{ reviewer.email }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Middle Name:</th>
+                <td>{{ reviewer.middle_name }}</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h3>Rating</h3>
+        <ul>
+            {% for rating in rating_list %}
+                <li>
+                    <a href="{{ rating.get_absolute_url }}">{{ rating }}</a>
+                </li>
+            {% empty %}
+                <li><em>There are currently no ratings for this reviewer.</em></li>
+            {% endfor %}
+        </ul>
+        <h3>Dine</h3>
+        <ul>
+            {% for dine in dine_list %}
+                <li>
+                    <a href="{{ dine.get_absolute_url }}">{{ dine }}</a>
+                </li>
+            {% empty %}
+                <li><em>There are currently no dinings for this reviewer.</em></li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

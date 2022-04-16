@@ -1,0 +1,47 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Item - {{ item }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ item }}</h2>
+    <ul class="ezu-button-list">
+        <li>
+            <a href="{{ item.get_update_url }}"
+               class="button button-primary">
+                Edit Item</a></li>
+        <li>
+            <a href="{{ item.get_delete_url }}"
+               class="button button-primary">
+                Delete Item</a></li>
+    </ul>
+
+    <section>
+        <table>
+            <tr>
+                <th>Name:</th>
+                <td>{{ item.item_name }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Cost:</th>
+                <td>{{ item.item_cost }}</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h3>Rating</h3>
+        <ul>
+            {% for rating in rating_list %}
+                <li>
+                    <a href="{{ rating.get_absolute_url }}">{{ rating }}</a>
+                </li>
+            {% empty %}
+                <li><em>There are currently no ratings for this item.</em></li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

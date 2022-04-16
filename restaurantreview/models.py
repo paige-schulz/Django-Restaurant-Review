@@ -2,21 +2,32 @@ from datetime import datetime
 
 from django.db import models
 from django.db.models import UniqueConstraint
+from django.urls import reverse
 
 
 class Reviewer(models.Model):
     reviewer_id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=45, unique=True)
-    last_name = models.CharField(max_length=45, unique=True)
+    first_name = models.CharField(max_length=45)
+    last_name = models.CharField(max_length=45)
     email = models.EmailField(max_length=45, unique=True)
+    middle_name = models.CharField(max_length=45, blank=True, default='')
 
     def __str__(self):
-        return '%s %s' % (self.first_name, self.last_name)
+        result = ''
+        if self.middle_name == '':
+            result = '%s %s' % (self.first_name, self.last_name)
+        else:
+            result = '%s %s %s' % (self.first_name, self.middle_name, self.last_name)
+        return result
+
+    # def get_absolute_url(self):
+    #     return reverse('restaurantreview_reviewer_detail_urlpattern',
+    #                    kwargs={'pk': self.pk})
 
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ['last_name', 'first_name', 'middle_name']
         constraints = [
-            UniqueConstraint(fields=['first_name', 'last_name'], name='unique_person')
+            UniqueConstraint(fields=['last_name', 'first_name', 'middle_name'], name='unique_reviewer')
         ]
 
 
@@ -27,18 +38,26 @@ class Restaurant(models.Model):
     def __str__(self):
         return '%s' % self.restaurant_name
 
+    def get_absolute_url(self):
+        return reverse('restaurantreview_restaurant_detail_urlpattern',
+                       kwargs={'pk': self.pk})
+
 
 class Location(models.Model):
     location_id = models.AutoField(primary_key=True)
     street_number = models.IntegerField(unique=True)
-    street_name = models.CharField(max_length=45, unique=True)
-    city = models.CharField(max_length=45, unique=True)
+    street_name = models.CharField(max_length=45)
+    city = models.CharField(max_length=45)
     zipcode = models.IntegerField(unique=True)
-    state = models.CharField(max_length=25, unique=True)
+    state = models.CharField(max_length=25)
     restaurant = models.ForeignKey(Restaurant, related_name="locations", on_delete=models.PROTECT)
 
     def __str__(self):
         return '%s %s %s, %s %s' % (self.street_number, self.street_name, self.city, self.state, self.zipcode)
+
+    def get_absolute_url(self):
+        return reverse('restaurantreview_location_detail_urlpattern',
+                       kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['street_number', 'street_name']
@@ -49,33 +68,41 @@ class Location(models.Model):
 
 class Item(models.Model):
     item_id = models.AutoField(primary_key=True)
-    item_name = models.CharField(max_length=45, unique=True)
-    item_cost = models.DecimalField(decimal_places=2, max_digits=6, unique=True)
+    item_name = models.CharField(max_length=45)
+    item_cost = models.DecimalField(decimal_places=2, max_digits=6)
 
     def __str__(self):
         return '%s - %s' % (self.item_name, self.item_cost)
 
+    def get_absolute_url(self):
+        return reverse('restaurantreview_item_detail_urlpattern',
+                       kwargs={'pk': self.pk})
+
     class Meta:
-        ordering = ['name', 'cost']
+        ordering = ['item_name', 'item_cost']
 
 
 class Rating(models.Model):
     rating_id = models.AutoField(primary_key=True)
     stars_rating = models.IntegerField(unique=True)
-    comment = models.CharField(max_length=250, unique=True, default='')
+    comment = models.CharField(max_length=250, default='')
     reviewer = models.ForeignKey(Reviewer, related_name="ratings", on_delete=models.PROTECT)
     item = models.ForeignKey(Item, related_name="ratings", on_delete=models.PROTECT)
 
     def __str__(self):
         return '%s - %s' % (self.stars_rating, self.comment)
 
+    def get_absolute_url(self):
+        return reverse('restaurantreview_rating_detail_urlpattern',
+                       kwargs={'pk': self.pk})
+
     class Meta:
-        ordering = ['rating']
+        ordering = ['stars_rating']
 
 
 class Recipe(models.Model):
     recipe_id = models.AutoField(primary_key=True)
-    ingredients = models.CharField(max_length=55, unique=True)
+    ingredients = models.CharField(max_length=55)
 
     def __str__(self):
         return '%s' % self.ingredients
@@ -89,6 +116,10 @@ class Dine(models.Model):
 
     def __str__(self):
         return '%s' % self.date
+
+    def get_absolute_url(self):
+        return reverse('restaurantreview_dine_detail_urlpattern',
+                       kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['date', 'location', 'reviewer']

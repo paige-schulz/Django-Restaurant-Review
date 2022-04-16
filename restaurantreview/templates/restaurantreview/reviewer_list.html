@@ -1,0 +1,17 @@
+{% extends 'restaurantreview/base.html' %}
+{% block title %}
+    Reviewer List
+{% endblock %}
+
+{% block content %}
+    <h1>Reviewer List</h1>
+    <ol>
+        {% for reviewer in reviewer_list %}
+            <li>
+                <a href="">{{ reviewer }}</a>
+            </li>
+        {% empty %}
+            <li><em> There are no reviewers.</em></li>
+        {% endfor %}
+    </ol>
+{% endblock %}
