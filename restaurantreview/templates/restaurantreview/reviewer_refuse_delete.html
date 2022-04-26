@@ -1,0 +1,29 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Error Deleting Reviewer
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h2>Error Deleting Reviewer</h2>
+        <p>
+            You may not delete reviewer {{ reviewer }}. This reviewer currently has the following ratings:
+        </p>
+
+        <ul>
+            {% for rating in ratings %}
+                <li><a href="{{ rating.get_absolute_url }}">{{ rating }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for dine in dines %}
+                <li><a href="{{ dine.get_absolute_url }}">{{ dine }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <p>
+            Return to <a href="{% url 'restaurantreview_reviewer_list_urlpattern' %}">Reviewer List</a>.
+        </p>
+    </div>
+{% endblock %}

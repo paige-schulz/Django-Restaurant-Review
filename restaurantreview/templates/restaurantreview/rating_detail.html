@@ -34,23 +34,11 @@
     <section>
         <h3>Reviewer</h3>
         <ul>
-            {% for reviewer in reviewer_list %}
-                <li>
-                    <a href="{{ reviewer.get_absolute_url }}">{{ reviewer }}</a>
-                </li>
-            {% empty %}
-                <li><em>There are currently no reviewers for this rating.</em></li>
-            {% endfor %}
+            <a href="{{ reviewer.get_absolute_url }}">{{ reviewer }}</a>
         </ul>
         <h3>Item</h3>
         <ul>
-            {% for item in item_list %}
-                <li>
-                    <a href="{{ item.get_absolute_url }}">{{ item }}</a>
-                </li>
-            {% empty %}
-                <li><em>There are currently no items for this rating.</em></li>
-            {% endfor %}
+            <a href="{{ item.get_absolute_url }}">{{ item }}</a>
         </ul>
     </section>
 {% endblock %}

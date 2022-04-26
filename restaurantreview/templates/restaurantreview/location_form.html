@@ -1,0 +1,15 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Create Location
+{% endblock %}
+
+{% block content %}
+    <form
+            action="{% url 'restaurantreview_location_create_urlpattern' %}"
+            method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button button-primary">Create Location</button>
+    </form>
+{% endblock %}

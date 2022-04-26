@@ -25,28 +25,31 @@
     <nav>
         <ul>
             <li>
-                <a href="">
-                    Reviews</a></li>
+                <a href="{% url 'restaurantreview_dine_list_urlpattern' %}">
+                    Dining</a></li>
             <li>
-                <a href="">
+                <a href="{% url 'restaurantreview_reviewer_list_urlpattern' %}">
+                    Reviewers</a></li>
+            <li>
+                <a href="{% url 'restaurantreview_restaurant_list_urlpattern' %}">
                     Restaurants</a></li>
             <li>
-                <a href="">
+                <a href="{% url 'restaurantreview_location_list_urlpattern' %}">
                     Locations</a></li>
             <li>
-                <a href="">
+                <a href="{% url 'restaurantreview_item_list_urlpattern' %}">
                     Items</a></li>
             <li>
-                <a href="">
-                    Ratings</a></li>
+                <a href="{% url 'restaurantreview_rating_list_urlpattern' %}">
+                    Rating</a></li>
             <li>
-                <a href="">
+                <a href="{% url 'restaurantreview_recipe_list_urlpattern' %}">
                     Recipes</a></li>
         </ul>
     </nav>
     <main>
         {% block content %}
-            
+
         {% endblock %}
     </main>
 </div><!-- end of container -->

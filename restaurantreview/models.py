@@ -20,9 +20,13 @@ class Reviewer(models.Model):
             result = '%s %s %s' % (self.first_name, self.middle_name, self.last_name)
         return result
 
-    # def get_absolute_url(self):
-    #     return reverse('restaurantreview_reviewer_detail_urlpattern',
-    #                    kwargs={'pk': self.pk})
+    def get_absolute_url(self):
+        return reverse('restaurantreview_reviewer_detail_urlpattern',
+                       kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('restaurantreview_reviewer_delete_urlpattern',
+                       kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['last_name', 'first_name', 'middle_name']
@@ -42,6 +46,26 @@ class Restaurant(models.Model):
         return reverse('restaurantreview_restaurant_detail_urlpattern',
                        kwargs={'pk': self.pk})
 
+    def get_delete_url(self):
+        return reverse('restaurantreview_restaurant_delete_urlpattern',
+                       kwargs={'pk': self.pk})
+
+
+class Recipe(models.Model):
+    recipe_id = models.AutoField(primary_key=True)
+    ingredients = models.CharField(max_length=55, default='')
+
+    def __str__(self):
+        return '%s' % self.ingredients
+
+    def get_absolute_url(self):
+        return reverse('restaurantreview_recipe_detail_urlpattern',
+                       kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('restaurantreview_recipe_delete_urlpattern',
+                       kwargs={'pk': self.pk})
+
 
 class Location(models.Model):
     location_id = models.AutoField(primary_key=True)
@@ -59,6 +83,10 @@ class Location(models.Model):
         return reverse('restaurantreview_location_detail_urlpattern',
                        kwargs={'pk': self.pk})
 
+    def get_delete_url(self):
+        return reverse('restaurantreview_location_delete_urlpattern',
+                       kwargs={'pk': self.pk})
+
     class Meta:
         ordering = ['street_number', 'street_name']
         constraints = [
@@ -70,12 +98,17 @@ class Item(models.Model):
     item_id = models.AutoField(primary_key=True)
     item_name = models.CharField(max_length=45)
     item_cost = models.DecimalField(decimal_places=2, max_digits=6)
+    recipe = models.ForeignKey(Recipe, related_name="items", on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return '%s - %s' % (self.item_name, self.item_cost)
 
     def get_absolute_url(self):
         return reverse('restaurantreview_item_detail_urlpattern',
+                       kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('restaurantreview_item_delete_urlpattern',
                        kwargs={'pk': self.pk})
 
     class Meta:
@@ -96,16 +129,12 @@ class Rating(models.Model):
         return reverse('restaurantreview_rating_detail_urlpattern',
                        kwargs={'pk': self.pk})
 
+    def get_delete_url(self):
+        return reverse('restaurantreview_rating_delete_urlpattern',
+                       kwargs={'pk': self.pk})
+
     class Meta:
         ordering = ['stars_rating']
-
-
-class Recipe(models.Model):
-    recipe_id = models.AutoField(primary_key=True)
-    ingredients = models.CharField(max_length=55)
-
-    def __str__(self):
-        return '%s' % self.ingredients
 
 
 class Dine(models.Model):
@@ -119,6 +148,10 @@ class Dine(models.Model):
 
     def get_absolute_url(self):
         return reverse('restaurantreview_dine_detail_urlpattern',
+                       kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('restaurantreview_dine_delete_urlpattern',
                        kwargs={'pk': self.pk})
 
     class Meta:

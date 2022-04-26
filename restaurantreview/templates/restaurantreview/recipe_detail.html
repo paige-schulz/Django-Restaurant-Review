@@ -1,0 +1,41 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Recipe - {{ recipe }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ recipe }}</h2>
+    <ul class="ezu-button-list">
+        <li>
+            <a href="{{ recipe.get_update_url }}"
+               class="button button-primary">
+                Edit Recipe</a></li>
+        <li>
+            <a href="{{ recipe.get_delete_url }}"
+               class="button button-primary">
+                Delete Recipe</a></li>
+    </ul>
+
+    <section>
+        <table>
+            <tr>
+                <th>Ingredients:</th>
+                <td>{{ recipe.ingredients }}</td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <h1>Items</h1>
+        <ol>
+            {% for item in item_list %}
+                <li>
+                    <a href="{{ item.get_absolute_url }}">
+                        {{ item }}</a>
+                </li>
+            {% empty %}
+                <li><em> This recipe has no items.</em></li>
+            {% endfor %}
+        </ol>
+    </section>
+{% endblock %}

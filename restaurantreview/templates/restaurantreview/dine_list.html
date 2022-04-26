@@ -5,10 +5,17 @@
 
 {% block content %}
     <h1>Dining</h1>
+    <div class="mobile">
+        <a
+                href="{% url 'restaurantreview_dine_create_urlpattern' %}"
+                class="button button-primary">
+            Create New Dining</a>
+    </div>
     <ol>
         {% for dine in dine_list %}
             <li>
-                <a href="">{{ dine }}</a>
+                <a href="{{ dine.get_absolute_url }}">
+                    {{ dine }}</a>
             </li>
         {% empty %}
             <li><em> There are no previous dinings.</em></li>

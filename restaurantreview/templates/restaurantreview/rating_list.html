@@ -5,10 +5,17 @@
 
 {% block content %}
     <h1>Ratings</h1>
+    <div class="mobile">
+        <a
+                href="{% url 'restaurantreview_rating_create_urlpattern' %}"
+                class="button button-primary">
+            Create New Rating</a>
+    </div>
     <ol>
         {% for rating in rating_list %}
             <li>
-                <a href="">{{ rating }}</a>
+                <a href="{{ rating.get_absolute_url }}">
+                    {{ rating }}</a>
             </li>
         {% empty %}
             <li><em> There are no ratings currently for this restaurant.</em></li>
