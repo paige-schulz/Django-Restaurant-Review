@@ -10,15 +10,15 @@
                 href="{% url 'restaurantreview_item_create_urlpattern' %}"
                 class="button button-primary">
             Create New Item</a>
-    </div>
-    <ol>
-        {% for item in item_list %}
-            <li>
-                <a href="{{ item.get_absolute_url }}">
-                    {{ item }}</a>
-            </li>
-        {% empty %}
-            <li><em> There are no items.</em></li>
-        {% endfor %}
-    </ol>
+
+        <ol>
+            {% for item in item_list %}
+                <li>
+                    <a href="{{ item.get_absolute_url }}">
+                        {{ item }}</a>
+                </li>
+            {% empty %}
+                <li><em> There are no items.</em></li>
+            {% endfor %}
+        </ol>
 {% endblock %}

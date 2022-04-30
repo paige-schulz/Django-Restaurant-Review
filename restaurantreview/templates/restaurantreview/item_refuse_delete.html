@@ -1,0 +1,25 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Error Deleting Item
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h2>Error Deleting Item</h2>
+        <p>
+            You may not delete item {{ item }}. This item currently has the following ratings associated
+            with it :
+        </p>
+
+        <ul>
+            {% for rating in ratings %}
+                <li><a href="{{ rating.get_absolute_url }}">{{ rating }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <p>
+            Return to <a href="{% url 'restaurantreview_rating_list_urlpattern' %}">Rating List</a>.
+        </p>
+    </div>
+{% endblock %}

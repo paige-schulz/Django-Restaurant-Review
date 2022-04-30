@@ -28,6 +28,10 @@ class Reviewer(models.Model):
         return reverse('restaurantreview_reviewer_delete_urlpattern',
                        kwargs={'pk': self.pk})
 
+    def get_update_url(self):
+        return reverse('restaurantreview_reviewer_update_urlpattern',
+                       kwargs={'pk': self.pk})
+
     class Meta:
         ordering = ['last_name', 'first_name', 'middle_name']
         constraints = [
@@ -50,6 +54,10 @@ class Restaurant(models.Model):
         return reverse('restaurantreview_restaurant_delete_urlpattern',
                        kwargs={'pk': self.pk})
 
+    def get_update_url(self):
+        return reverse('restaurantreview_restaurant_update_urlpattern',
+                       kwargs={'pk': self.pk})
+
 
 class Recipe(models.Model):
     recipe_id = models.AutoField(primary_key=True)
@@ -64,6 +72,10 @@ class Recipe(models.Model):
 
     def get_delete_url(self):
         return reverse('restaurantreview_recipe_delete_urlpattern',
+                       kwargs={'pk': self.pk})
+
+    def get_update_url(self):
+        return reverse('restaurantreview_recipe_update_urlpattern',
                        kwargs={'pk': self.pk})
 
 
@@ -85,6 +97,10 @@ class Location(models.Model):
 
     def get_delete_url(self):
         return reverse('restaurantreview_location_delete_urlpattern',
+                       kwargs={'pk': self.pk})
+
+    def get_update_url(self):
+        return reverse('restaurantreview_location_update_urlpattern',
                        kwargs={'pk': self.pk})
 
     class Meta:
@@ -111,6 +127,10 @@ class Item(models.Model):
         return reverse('restaurantreview_item_delete_urlpattern',
                        kwargs={'pk': self.pk})
 
+    def get_update_url(self):
+        return reverse('restaurantreview_item_update_urlpattern',
+                       kwargs={'pk': self.pk})
+
     class Meta:
         ordering = ['item_name', 'item_cost']
 
@@ -133,6 +153,10 @@ class Rating(models.Model):
         return reverse('restaurantreview_rating_delete_urlpattern',
                        kwargs={'pk': self.pk})
 
+    def get_update_url(self):
+        return reverse('restaurantreview_rating_update_urlpattern',
+                       kwargs={'pk': self.pk})
+
     class Meta:
         ordering = ['stars_rating']
 
@@ -152,6 +176,10 @@ class Dine(models.Model):
 
     def get_delete_url(self):
         return reverse('restaurantreview_dine_delete_urlpattern',
+                       kwargs={'pk': self.pk})
+
+    def get_update_url(self):
+        return reverse('restaurantreview_dine_update_urlpattern',
                        kwargs={'pk': self.pk})
 
     class Meta:

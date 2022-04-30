@@ -1,0 +1,15 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Update Location
+{% endblock %}
+
+{% block content %}
+    <form
+            action="{{ location.get_update_url }}"
+            method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button button-primary">Update Location</button>
+    </form>
+{% endblock %}

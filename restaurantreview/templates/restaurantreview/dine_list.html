@@ -5,12 +5,10 @@
 
 {% block content %}
     <h1>Dining</h1>
-    <div class="mobile">
-        <a
-                href="{% url 'restaurantreview_dine_create_urlpattern' %}"
-                class="button button-primary">
-            Create New Dining</a>
-    </div>
+    <a
+            href="{% url 'restaurantreview_dine_create_urlpattern' %}"
+            class="button button-primary">
+        Create New Dining</a>
     <ol>
         {% for dine in dine_list %}
             <li>

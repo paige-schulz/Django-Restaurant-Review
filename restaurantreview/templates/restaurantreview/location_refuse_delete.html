@@ -1,0 +1,30 @@
+{% extends 'restaurantreview/base.html' %}
+
+{% block title %}
+    Error Deleting Location
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h2>Error Deleting Location</h2>
+        <p>
+            You may not delete location {{ location }}. This location currently has the following dinings associated
+            with it :
+        </p>
+
+        <ul>
+            {% for dine in dines %}
+                <li><a href="{{ dine.get_absolute_url }}">{{ dine }}</a></li>
+            {% endfor %}
+        </ul>
+        {#        <ul>#}
+        {#            {% for restaurant in restaurants %}#}
+        {#                <li><a href="{{ restaurant.get_absolute_url }}">{{ restaurant }}</a></li>#}
+        {#            {% endfor %}#}
+        {#        </ul>#}
+
+        <p>
+            Return to <a href="{% url 'restaurantreview_location_list_urlpattern' %}">Location List</a>.
+        </p>
+    </div>
+{% endblock %}

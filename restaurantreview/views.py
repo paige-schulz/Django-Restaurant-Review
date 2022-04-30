@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from restaurantreview.forms import DineForm, ItemForm, ReviewerForm, RestaurantForm, LocationForm, RatingForm, \
     RecipeForm
 from restaurantreview.models import Reviewer, Dine, Item, Location, Recipe, Rating, Restaurant
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
 
 class ReviewerList(ListView):
@@ -35,7 +35,7 @@ class ReviewerDelete(DeleteView):
     model = Reviewer
     success_url = reverse_lazy('restaurantreview_reviewer_list_urlpattern')
 
-    # permission_required = 'courseinfo.delete_section'
+    # permission_required = 'restaurantreview.delete_section'
 
     def get(self, request, pk):
         reviewer = get_object_or_404(Reviewer, pk=pk)
@@ -50,20 +50,27 @@ class ReviewerDelete(DeleteView):
                  'dines': dines,
                  }
             )
-        # if ratings.count() > 0:
-        #     return render(
-        #         request,
-        #         'restaurantreview/reviewer_refuse_delete.html',
-        #         {'reviewer': reviewer,
-        #          'ratings': ratings,
-        #          }
-        #     )
+        if ratings.count() > 0:
+            return render(
+                request,
+                'restaurantreview/reviewer_refuse_delete.html',
+                {'reviewer': reviewer,
+                 'ratings': ratings,
+                 }
+            )
         else:
             return render(
                 request,
                 'restaurantreview/reviewer_confirm_delete.html',
                 {'reviewer': reviewer}
             )
+
+
+class ReviewerUpdate(UpdateView):
+    form_class = ReviewerForm
+    model = Reviewer
+    template_name = 'restaurantreview/reviewer_form_update.html'
+    # permission_required = 'restaurantreview.change_semester'
 
 
 class RestaurantList(ListView):
@@ -91,19 +98,19 @@ class RestaurantDelete(DeleteView):
     model = Restaurant
     success_url = reverse_lazy('restaurantreview_restaurant_list_urlpattern')
 
-    # permission_required = 'courseinfo.delete_section'
+    # permission_required = 'restaurantreview.delete_section'
 
     def get(self, request, pk):
         restaurant = get_object_or_404(Restaurant, pk=pk)
         # registrations = section.registrations.all()
         # dines = restaurant.dines.all()
-        location = restaurant.locations.all()
-        if location.count() > 0:
+        locations = restaurant.locations.all()
+        if locations.count() > 0:
             return render(
                 request,
                 'restaurantreview/restaurant_refuse_delete.html',
                 {'restaurant': restaurant,
-                 'location': location,
+                 'locations': locations,
                  }
             )
         else:
@@ -112,6 +119,13 @@ class RestaurantDelete(DeleteView):
                 'restaurantreview/restaurant_confirm_delete.html',
                 {'restaurant': restaurant}
             )
+
+
+class RestaurantUpdate(UpdateView):
+    form_class = RestaurantForm
+    model = Restaurant
+    template_name = 'restaurantreview/restaurant_form_update.html'
+    # permission_required = 'restaurantreview.change_semester'
 
 
 class DineList(ListView):
@@ -137,8 +151,46 @@ class DineCreate(CreateView):
     # permission_required = 'restaurantreview.add_dine'
 
 
+class DineDelete(DeleteView):
+    model = Dine
+    success_url = reverse_lazy('restaurantreview_dine_list_urlpattern')
+    # permission_required = 'restaurantreview.delete_registration'
+
+
+class DineUpdate(UpdateView):
+    form_class = DineForm
+    model = Dine
+    template_name = 'restaurantreview/dine_form_update.html'
+    # permission_required = 'restaurantreview.change_semester'
+
+
 class ItemList(ListView):
     model = Item
+
+
+class ItemDelete(DeleteView):
+    model = Item
+    success_url = reverse_lazy('restaurantreview_item_list_urlpattern')
+
+    # permission_required = 'restaurantreview.delete_course'
+
+    def get(self, request, pk):
+        item = get_object_or_404(Item, pk=pk)
+        ratings = item.ratings.all()
+        if ratings.count() > 0:
+            return render(
+                request,
+                'restaurantreview/item_refuse_delete.html',
+                {'item': item,
+                 'ratings': ratings,
+                 }
+            )
+        else:
+            return render(
+                request,
+                'restaurantreview/item_confirm_delete.html',
+                {'item': item}
+            )
 
 
 class ItemDetail(DetailView):
@@ -160,6 +212,13 @@ class ItemCreate(CreateView):
     # permission_required = 'restaurantreview.add_item'
 
 
+class ItemUpdate(UpdateView):
+    form_class = ItemForm
+    model = Item
+    template_name = 'restaurantreview/item_form_update.html'
+    # permission_required = 'restaurantreview.change_semester'
+
+
 class LocationList(ListView):
     model = Location
 
@@ -179,6 +238,38 @@ class LocationCreate(CreateView):
     form_class = LocationForm
     model = Location
     # permission_required = 'restaurantreview.add_dine'
+
+
+class LocationDelete(DeleteView):
+    model = Location
+    success_url = reverse_lazy('restaurantreview_location_list_urlpattern')
+
+    # permission_required = 'restaurantreview.delete_course'
+
+    def get(self, request, pk):
+        location = get_object_or_404(Location, pk=pk)
+        dines = location.dines.all()
+        if dines.count() > 0:
+            return render(
+                request,
+                'restaurantreview/location_refuse_delete.html',
+                {'location': location,
+                 'dines': dines,
+                 }
+            )
+        else:
+            return render(
+                request,
+                'restaurantreview/location_confirm_delete.html',
+                {'location': location}
+            )
+
+
+class LocationUpdate(UpdateView):
+    form_class = LocationForm
+    model = Location
+    template_name = 'restaurantreview/location_form_update.html'
+    # permission_required = 'restaurantreview.change_semester'
 
 
 class RatingList(ListView):
@@ -204,6 +295,19 @@ class RatingCreate(CreateView):
     # permission_required = 'restaurantreview.add_dine'
 
 
+class RatingDelete(DeleteView):
+    model = Rating
+    success_url = reverse_lazy('restaurantreview_rating_list_urlpattern')
+    # permission_required = 'restaurantreview.delete_registration'
+
+
+class RatingUpdate(UpdateView):
+    form_class = RatingForm
+    model = Rating
+    template_name = 'restaurantreview/rating_form_update.html'
+    # permission_required = 'restaurantreview.change_semester'
+
+
 class RecipeList(ListView):
     model = Recipe
 
@@ -223,3 +327,36 @@ class RecipeCreate(CreateView):
     form_class = RecipeForm
     model = Recipe
     # permission_required = 'restaurantreview.add_dine'
+
+
+class RecipeDelete(DeleteView):
+    model = Recipe
+    success_url = reverse_lazy('restaurantreview_recipe_list_urlpattern')
+
+    # permission_required = 'restaurantreview.delete_course'
+
+    def get(self, request, pk):
+        recipe = get_object_or_404(Recipe, pk=pk)
+        # item = recipe.items.all()
+        items = recipe.items.all()
+        if items.count() > 0:
+            return render(
+                request,
+                'restaurantreview/recipe_refuse_delete.html',
+                {'recipe': recipe,
+                 'items': items,
+                 }
+            )
+        else:
+            return render(
+                request,
+                'restaurantreview/recipe_confirm_delete.html',
+                {'recipe': recipe}
+            )
+
+
+class RecipeUpdate(UpdateView):
+    form_class = RecipeForm
+    model = Recipe
+    template_name = 'restaurantreview/recipe_form_update.html'
+    # permission_required = 'restaurantreview.change_semester'

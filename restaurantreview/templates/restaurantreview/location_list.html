@@ -5,12 +5,10 @@
 
 {% block content %}
     <h1>Locations</h1>
-    <div class="mobile">
-        <a
-                href="{% url 'restaurantreview_location_create_urlpattern' %}"
-                class="button button-primary">
-            Create New Location</a>
-    </div>
+    <a
+            href="{% url 'restaurantreview_location_create_urlpattern' %}"
+            class="button button-primary">
+        Create New Location</a>
     <ol>
         {% for location in location_list %}
             <li>

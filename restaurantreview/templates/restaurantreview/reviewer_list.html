@@ -5,12 +5,10 @@
 
 {% block content %}
     <h1>Reviewer List</h1>
-    <div class="mobile">
-        <a
-                href="{% url 'restaurantreview_reviewer_create_urlpattern' %}"
-                class="button button-primary">
-            Create New Reviewer</a>
-    </div>
+    <a
+            href="{% url 'restaurantreview_reviewer_create_urlpattern' %}"
+            class="button button-primary">
+        Create New Reviewer</a>
     <ol>
         {% for reviewer in reviewer_list %}
             <li>

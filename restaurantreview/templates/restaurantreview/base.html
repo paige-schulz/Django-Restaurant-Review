@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <title>
         {% block title %}
-
+            title is provided by inheriting templates
         {% endblock %}
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -14,6 +15,13 @@
     <script
             src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
     </script><![endif]-->
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'restaurantreview/normalize.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'restaurantreview/skeleton.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'restaurantreview/style.css' %}">
+    {% block head %}{% endblock %}
 </head>
 
 <body>
@@ -45,6 +53,9 @@
             <li>
                 <a href="{% url 'restaurantreview_recipe_list_urlpattern' %}">
                     Recipes</a></li>
+            <li>
+                <a href="{% url 'about_urlpattern' %}">
+                    About</a></li>
         </ul>
     </nav>
     <main>
