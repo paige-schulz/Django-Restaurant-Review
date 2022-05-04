@@ -7,14 +7,18 @@
 {% block content %}
     <h2>{{ recipe }}</h2>
     <ul class="ezu-button-list">
-        <li>
-            <a href="{{ recipe.get_update_url }}"
-               class="button button-primary">
-                Edit Recipe</a></li>
-        <li>
-            <a href="{{ recipe.get_delete_url }}"
-               class="button button-primary">
-                Delete Recipe</a></li>
+        {% if perms.restaurantreview.change_recipe %}
+            <li>
+                <a href="{{ recipe.get_update_url }}"
+                   class="button button-primary">
+                    Edit Recipe</a></li>
+        {% endif %}
+        {% if perms.restaurantreview.delete_recipe %}
+            <li>
+                <a href="{{ recipe.get_delete_url }}"
+                   class="button button-primary">
+                    Delete Recipe</a></li>
+        {% endif %}
     </ul>
 
     <section>

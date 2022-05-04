@@ -7,14 +7,18 @@
 {% block content %}
     <h2>{{ reviewer }}</h2>
     <ul class="ezu-button-list">
-        <li>
-            <a href="{{ reviewer.get_update_url }}"
-               class="button button-primary">
-                Edit Reviewer</a></li>
-        <li>
-            <a href="{{ reviewer.get_delete_url }}"
-               class="button button-primary">
-                Delete Reviewer</a></li>
+        {% if perms.restaurantreview.change_reviewer %}
+            <li>
+                <a href="{{ reviewer.get_update_url }}"
+                   class="button button-primary">
+                    Edit Reviewer</a></li>
+        {% endif %}
+        {% if perms.restaurantreview.delete_reviewer %}
+            <li>
+                <a href="{{ reviewer.get_delete_url }}"
+                   class="button button-primary">
+                    Delete Reviewer</a></li>
+        {% endif %}
     </ul>
 
     <section>

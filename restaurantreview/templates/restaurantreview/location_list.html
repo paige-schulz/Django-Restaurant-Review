@@ -5,10 +5,14 @@
 
 {% block content %}
     <h1>Locations</h1>
-    <a
-            href="{% url 'restaurantreview_location_create_urlpattern' %}"
-            class="button button-primary">
-        Create New Location</a>
+    {% block create_button %}
+        {% if perms.restaurantreview.add_location %}
+            <a
+                    href="{% url 'restaurantreview_location_create_urlpattern' %}"
+                    class="button button-primary">
+                Create New Location</a>
+        {% endif %}
+    {% endblock %}
     <ol>
         {% for location in location_list %}
             <li>

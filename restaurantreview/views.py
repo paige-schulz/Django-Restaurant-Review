@@ -6,14 +6,17 @@ from restaurantreview.forms import DineForm, ItemForm, ReviewerForm, RestaurantF
     RecipeForm
 from restaurantreview.models import Reviewer, Dine, Item, Location, Recipe, Rating, Restaurant
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from .utils import PageLinksMixin
 
 
-class ReviewerList(ListView):
+class ReviewerList(LoginRequiredMixin, PermissionRequiredMixin, PageLinksMixin, ListView):
     model = Reviewer
+    permission_required = 'restaurantreview.view_reviewer'
 
 
-class ReviewerDetail(DetailView):
+class ReviewerDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Reviewer
+    permission_required = 'restaurantreview.view_reviewer'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -25,21 +28,19 @@ class ReviewerDetail(DetailView):
         return context
 
 
-class ReviewerCreate(CreateView):
+class ReviewerCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = ReviewerForm
     model = Reviewer
-    # permission_required = 'restaurantreview.add_dine'
+    permission_required = 'restaurantreview.add_reviewer'
 
 
-class ReviewerDelete(DeleteView):
+class ReviewerDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Reviewer
     success_url = reverse_lazy('restaurantreview_reviewer_list_urlpattern')
-
-    # permission_required = 'restaurantreview.delete_section'
+    permission_required = 'restaurantreview.delete_reviewer'
 
     def get(self, request, pk):
         reviewer = get_object_or_404(Reviewer, pk=pk)
-        # registrations = section.registrations.all()
         dines = reviewer.dines.all()
         ratings = reviewer.dines.all()
         if dines.count() > 0:
@@ -66,19 +67,21 @@ class ReviewerDelete(DeleteView):
             )
 
 
-class ReviewerUpdate(UpdateView):
+class ReviewerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = ReviewerForm
     model = Reviewer
     template_name = 'restaurantreview/reviewer_form_update.html'
-    # permission_required = 'restaurantreview.change_semester'
+    permission_required = 'restaurantreview.change_reviewer'
 
 
-class RestaurantList(ListView):
+class RestaurantList(LoginRequiredMixin, PermissionRequiredMixin, PageLinksMixin, ListView):
     model = Restaurant
+    permission_required = 'restaurantreview.view_restaurant'
 
 
-class RestaurantDetail(DetailView):
+class RestaurantDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Restaurant
+    permission_required = 'restaurantreview.view_restaurant'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -88,17 +91,16 @@ class RestaurantDetail(DetailView):
         return context
 
 
-class RestaurantCreate(CreateView):
+class RestaurantCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = RestaurantForm
     model = Restaurant
-    # permission_required = 'restaurantreview.add_dine'
+    permission_required = 'restaurantreview.add_restaurant'
 
 
-class RestaurantDelete(DeleteView):
+class RestaurantDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Restaurant
     success_url = reverse_lazy('restaurantreview_restaurant_list_urlpattern')
-
-    # permission_required = 'restaurantreview.delete_section'
+    permission_required = 'restaurantreview.delete_restaurant'
 
     def get(self, request, pk):
         restaurant = get_object_or_404(Restaurant, pk=pk)
@@ -121,19 +123,21 @@ class RestaurantDelete(DeleteView):
             )
 
 
-class RestaurantUpdate(UpdateView):
+class RestaurantUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = RestaurantForm
     model = Restaurant
     template_name = 'restaurantreview/restaurant_form_update.html'
-    # permission_required = 'restaurantreview.change_semester'
+    permission_required = 'restaurantreview.change_restaurant'
 
 
-class DineList(ListView):
+class DineList(LoginRequiredMixin, PermissionRequiredMixin, PageLinksMixin, ListView):
     model = Dine
+    permission_required = 'restaurantreview.view_dine'
 
 
-class DineDetail(DetailView):
+class DineDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Dine
+    permission_required = 'restaurantreview.view_dine'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -145,34 +149,34 @@ class DineDetail(DetailView):
         return context
 
 
-class DineCreate(CreateView):
+class DineCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = DineForm
     model = Dine
-    # permission_required = 'restaurantreview.add_dine'
+    permission_required = 'restaurantreview.add_dine'
 
 
-class DineDelete(DeleteView):
+class DineDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Dine
     success_url = reverse_lazy('restaurantreview_dine_list_urlpattern')
-    # permission_required = 'restaurantreview.delete_registration'
+    permission_required = 'restaurantreview.delete_dine'
 
 
-class DineUpdate(UpdateView):
+class DineUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = DineForm
     model = Dine
     template_name = 'restaurantreview/dine_form_update.html'
-    # permission_required = 'restaurantreview.change_semester'
+    permission_required = 'restaurantreview.change_dine'
 
 
-class ItemList(ListView):
+class ItemList(LoginRequiredMixin, PermissionRequiredMixin, PageLinksMixin, ListView):
     model = Item
+    permission_required = 'restaurantreview.view_item'
 
 
-class ItemDelete(DeleteView):
+class ItemDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Item
     success_url = reverse_lazy('restaurantreview_item_list_urlpattern')
-
-    # permission_required = 'restaurantreview.delete_course'
+    permission_required = 'restaurantreview.delete_item'
 
     def get(self, request, pk):
         item = get_object_or_404(Item, pk=pk)
@@ -193,8 +197,9 @@ class ItemDelete(DeleteView):
             )
 
 
-class ItemDetail(DetailView):
+class ItemDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Item
+    permission_required = 'restaurantreview.view_item'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -206,25 +211,27 @@ class ItemDetail(DetailView):
         return context
 
 
-class ItemCreate(CreateView):
+class ItemCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = ItemForm
     model = Item
-    # permission_required = 'restaurantreview.add_item'
+    permission_required = 'restaurantreview.add_item'
 
 
-class ItemUpdate(UpdateView):
+class ItemUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = ItemForm
     model = Item
     template_name = 'restaurantreview/item_form_update.html'
-    # permission_required = 'restaurantreview.change_semester'
+    permission_required = 'restaurantreview.change_item'
 
 
-class LocationList(ListView):
+class LocationList(LoginRequiredMixin, PermissionRequiredMixin, PageLinksMixin, ListView):
     model = Location
+    permission_required = 'restaurantreview.view_location'
 
 
-class LocationDetail(DetailView):
+class LocationDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Location
+    permission_required = 'restaurantreview.view_location'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -234,17 +241,16 @@ class LocationDetail(DetailView):
         return context
 
 
-class LocationCreate(CreateView):
+class LocationCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = LocationForm
     model = Location
-    # permission_required = 'restaurantreview.add_dine'
+    permission_required = 'restaurantreview.add_location'
 
 
-class LocationDelete(DeleteView):
+class LocationDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Location
     success_url = reverse_lazy('restaurantreview_location_list_urlpattern')
-
-    # permission_required = 'restaurantreview.delete_course'
+    permission_required = 'restaurantreview.delete_location'
 
     def get(self, request, pk):
         location = get_object_or_404(Location, pk=pk)
@@ -265,19 +271,21 @@ class LocationDelete(DeleteView):
             )
 
 
-class LocationUpdate(UpdateView):
+class LocationUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = LocationForm
     model = Location
     template_name = 'restaurantreview/location_form_update.html'
-    # permission_required = 'restaurantreview.change_semester'
+    permission_required = 'restaurantreview.change_location'
 
 
-class RatingList(ListView):
+class RatingList(LoginRequiredMixin, PermissionRequiredMixin, PageLinksMixin, ListView):
     model = Rating
+    permission_required = 'restaurantreview.view_rating'
 
 
-class RatingDetail(DetailView):
+class RatingDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Rating
+    permission_required = 'restaurantreview.view_rating'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -289,31 +297,33 @@ class RatingDetail(DetailView):
         return context
 
 
-class RatingCreate(CreateView):
+class RatingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = RatingForm
     model = Rating
-    # permission_required = 'restaurantreview.add_dine'
+    permission_required = 'restaurantreview.add_rating'
 
 
-class RatingDelete(DeleteView):
+class RatingDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Rating
     success_url = reverse_lazy('restaurantreview_rating_list_urlpattern')
-    # permission_required = 'restaurantreview.delete_registration'
+    permission_required = 'restaurantreview.delete_rating'
 
 
-class RatingUpdate(UpdateView):
+class RatingUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = RatingForm
     model = Rating
     template_name = 'restaurantreview/rating_form_update.html'
-    # permission_required = 'restaurantreview.change_semester'
+    permission_required = 'restaurantreview.change_rating'
 
 
-class RecipeList(ListView):
+class RecipeList(LoginRequiredMixin, PermissionRequiredMixin, PageLinksMixin, ListView):
     model = Recipe
+    permission_required = 'restaurantreview.view_recipe'
 
 
-class RecipeDetail(DetailView):
+class RecipeDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Recipe
+    permission_required = 'restaurantreview.view_recipe'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -323,21 +333,19 @@ class RecipeDetail(DetailView):
         return context
 
 
-class RecipeCreate(CreateView):
+class RecipeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = RecipeForm
     model = Recipe
-    # permission_required = 'restaurantreview.add_dine'
+    permission_required = 'restaurantreview.add_recipe'
 
 
-class RecipeDelete(DeleteView):
+class RecipeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Recipe
     success_url = reverse_lazy('restaurantreview_recipe_list_urlpattern')
-
-    # permission_required = 'restaurantreview.delete_course'
+    permission_required = 'restaurantreview.delete_recipe'
 
     def get(self, request, pk):
         recipe = get_object_or_404(Recipe, pk=pk)
-        # item = recipe.items.all()
         items = recipe.items.all()
         if items.count() > 0:
             return render(
@@ -355,8 +363,8 @@ class RecipeDelete(DeleteView):
             )
 
 
-class RecipeUpdate(UpdateView):
+class RecipeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = RecipeForm
     model = Recipe
     template_name = 'restaurantreview/recipe_form_update.html'
-    # permission_required = 'restaurantreview.change_semester'
+    permission_required = 'restaurantreview.change_recipe'

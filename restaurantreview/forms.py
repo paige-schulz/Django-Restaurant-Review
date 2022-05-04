@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.admin.widgets import AdminDateWidget
+from django.forms import DateField, NumberInput
 
 from restaurantreview.models import Dine, Recipe, Rating, Restaurant, Reviewer, Item, Location
 
@@ -72,6 +74,9 @@ class DineForm(forms.ModelForm):
     class Meta:
         model = Dine
         fields = '__all__'
+        widgets = {
+            'date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
+        }
 
 
 class ItemForm(forms.ModelForm):

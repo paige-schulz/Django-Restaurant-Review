@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import UniqueConstraint
 from django.urls import reverse
@@ -84,7 +85,7 @@ class Location(models.Model):
     street_number = models.IntegerField(unique=True)
     street_name = models.CharField(max_length=45)
     city = models.CharField(max_length=45)
-    zipcode = models.IntegerField(unique=True)
+    zipcode = models.IntegerField(max_length=10)
     state = models.CharField(max_length=25)
     restaurant = models.ForeignKey(Restaurant, related_name="locations", on_delete=models.PROTECT)
 
@@ -137,7 +138,7 @@ class Item(models.Model):
 
 class Rating(models.Model):
     rating_id = models.AutoField(primary_key=True)
-    stars_rating = models.IntegerField(unique=True)
+    stars_rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     comment = models.CharField(max_length=250, default='')
     reviewer = models.ForeignKey(Reviewer, related_name="ratings", on_delete=models.PROTECT)
     item = models.ForeignKey(Item, related_name="ratings", on_delete=models.PROTECT)

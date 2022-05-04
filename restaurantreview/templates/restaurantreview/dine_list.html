@@ -5,10 +5,14 @@
 
 {% block content %}
     <h1>Dining</h1>
-    <a
-            href="{% url 'restaurantreview_dine_create_urlpattern' %}"
-            class="button button-primary">
-        Create New Dining</a>
+    {% block create_button %}
+        {% if perms.restaurantreview.add_dine %}
+            <a
+                    href="{% url 'restaurantreview_dine_create_urlpattern' %}"
+                    class="button button-primary">
+                Create New Dining</a>
+        {% endif %}
+    {% endblock %}
     <ol>
         {% for dine in dine_list %}
             <li>

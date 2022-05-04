@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 from django.views.generic import RedirectView, TemplateView
 
@@ -8,6 +9,14 @@ urlpatterns = [
              pattern_name='about_urlpattern',
              permanent=False
          )),
+    path('login/',
+         LoginView.as_view(template_name='restaurantreview/login.html'),
+         name='login_urlpattern'
+         ),
+    path('logout/',
+         LogoutView.as_view(),
+         name='logout_urlpattern'
+         ),
     path('about/',
          TemplateView.as_view(template_name='restaurantreview/about.html'),
          name='about_urlpattern'

@@ -27,32 +27,60 @@
 <body>
 
 <div><!-- start of container -->
+    <div class="status row">
+        <div class="offset-by-eight four columns">
+            <ul class="inline">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout_urlpattern' %}">
+                        Log Out, {{ user.get_username }}</a></li>
+                {% else %}
+                    <li><a href="{% url 'login_urlpattern' %}">
+                        Log In</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
     <header>
         <h1>Restaurant Review</h1>
     </header>
     <nav>
         <ul>
-            <li>
-                <a href="{% url 'restaurantreview_dine_list_urlpattern' %}">
-                    Dining</a></li>
-            <li>
-                <a href="{% url 'restaurantreview_reviewer_list_urlpattern' %}">
-                    Reviewers</a></li>
-            <li>
-                <a href="{% url 'restaurantreview_restaurant_list_urlpattern' %}">
-                    Restaurants</a></li>
-            <li>
-                <a href="{% url 'restaurantreview_location_list_urlpattern' %}">
-                    Locations</a></li>
-            <li>
-                <a href="{% url 'restaurantreview_item_list_urlpattern' %}">
-                    Items</a></li>
-            <li>
-                <a href="{% url 'restaurantreview_rating_list_urlpattern' %}">
-                    Rating</a></li>
-            <li>
-                <a href="{% url 'restaurantreview_recipe_list_urlpattern' %}">
-                    Recipes</a></li>
+            {% if perms.restaurantreview.view_dine %}
+                <li>
+                    <a href="{% url 'restaurantreview_dine_list_urlpattern' %}">
+                        Dining</a></li>
+            {% endif %}
+            {% if perms.restaurantreview.view_reviewer %}
+                <li>
+                    <a href="{% url 'restaurantreview_reviewer_list_urlpattern' %}">
+                        Reviewers</a></li>
+            {% endif %}
+            {% if perms.restaurantreview.view_restaurant %}
+                <li>
+                    <a href="{% url 'restaurantreview_restaurant_list_urlpattern' %}">
+                        Restaurants</a></li>
+            {% endif %}
+            {% if perms.restaurantreview.view_location %}
+                <li>
+                    <a href="{% url 'restaurantreview_location_list_urlpattern' %}">
+                        Locations</a></li>
+            {% endif %}
+            {% if perms.restaurantreview.view_item %}
+                <li>
+                    <a href="{% url 'restaurantreview_item_list_urlpattern' %}">
+                        Items</a></li>
+            {% endif %}
+            {% if perms.restaurantreview.view_rating %}
+                <li>
+                    <a href="{% url 'restaurantreview_rating_list_urlpattern' %}">
+                        Rating</a></li>
+            {% endif %}
+            {% if perms.restaurantreview.view_recipe %}
+                <li>
+                    <a href="{% url 'restaurantreview_recipe_list_urlpattern' %}">
+                        Recipes</a></li>
+            {% endif %}
+
             <li>
                 <a href="{% url 'about_urlpattern' %}">
                     About</a></li>

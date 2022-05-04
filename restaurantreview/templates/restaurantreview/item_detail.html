@@ -7,14 +7,19 @@
 {% block content %}
     <h2>{{ item }}</h2>
     <ul class="ezu-button-list">
-        <li>
-            <a href="{{ item.get_update_url }}"
-               class="button button-primary">
-                Edit Item</a></li>
-        <li>
-            <a href="{{ item.get_delete_url }}"
-               class="button button-primary">
-                Delete Item</a></li>
+        {% if perms.restaurantreview.change_item %}
+            <li>
+                <a href="{{ item.get_update_url }}"
+                   class="button button-primary">
+                    Edit Item</a></li>
+        {% endif %}
+        {% if perms.restaurantreview.delete_item %}
+            <li>
+                <a href="{{ item.get_delete_url }}"
+                   class="button button-primary">
+                    Delete Item</a></li>
+        {% endif %}
+
     </ul>
 
     <section>

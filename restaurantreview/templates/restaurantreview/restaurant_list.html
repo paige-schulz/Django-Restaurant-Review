@@ -5,10 +5,14 @@
 
 {% block content %}
     <h1>Restaurants</h1>
-    <a
-            href="{% url 'restaurantreview_restaurant_create_urlpattern' %}"
-            class="button button-primary">
-        Create New Restaurant</a>
+    {% block create_button %}
+        {% if perms.restaurantreview.add_restaurant %}
+            <a
+                    href="{% url 'restaurantreview_restaurant_create_urlpattern' %}"
+                    class="button button-primary">
+                Create New Restaurant</a>
+        {% endif %}
+    {% endblock %}
     <ol>
         {% for restaurant in restaurant_list %}
             <li>

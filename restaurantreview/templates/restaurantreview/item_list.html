@@ -5,20 +5,23 @@
 
 {% block content %}
     <h1>Items</h1>
-    <div class="mobile">
-        <a
-                href="{% url 'restaurantreview_item_create_urlpattern' %}"
-                class="button button-primary">
-            Create New Item</a>
+    {% block create_button %}
+        {% if perms.restaurantreview.add_item %}
+            <a
+                    href="{% url 'restaurantreview_item_create_urlpattern' %}"
+                    class="button button-primary">
+                Create New Item</a>
+        {% endif %}
+    {% endblock %}
 
-        <ol>
-            {% for item in item_list %}
-                <li>
-                    <a href="{{ item.get_absolute_url }}">
-                        {{ item }}</a>
-                </li>
-            {% empty %}
-                <li><em> There are no items.</em></li>
-            {% endfor %}
-        </ol>
+    <ol>
+        {% for item in item_list %}
+            <li>
+                <a href="{{ item.get_absolute_url }}">
+                    {{ item }}</a>
+            </li>
+        {% empty %}
+            <li><em> There are no items.</em></li>
+        {% endfor %}
+    </ol>
 {% endblock %}
