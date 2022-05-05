@@ -24,16 +24,16 @@
     display: block;
     padding: 0;
     margin: -1em 0 2em;
-    color: #555;
+    color: #9898fa;
 }
 
 html {
     height: 100%;
-    background-color: #555;
+    background-color: #a7a7fc;
 }
 
 body {
-    background-color: blue;
+    background-color: #eeeef8;
 }
 
 body > div > header {
@@ -71,9 +71,9 @@ header h1 {
 }
 
 nav {
-    border-top: 1px solid #eee;
+    border-top: 1px solid #774b4b;
     width: 100%;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #915959;
     margin: 0 0 1em;
     padding: 0;
 }
@@ -258,5 +258,5 @@ body > footer li {
 ul.ezu-button-list {
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin: 10px;
 }

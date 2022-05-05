@@ -85,7 +85,7 @@ class Location(models.Model):
     street_number = models.IntegerField(unique=True)
     street_name = models.CharField(max_length=45)
     city = models.CharField(max_length=45)
-    zipcode = models.IntegerField(max_length=10)
+    zipcode = models.IntegerField()
     state = models.CharField(max_length=25)
     restaurant = models.ForeignKey(Restaurant, related_name="locations", on_delete=models.PROTECT)
 

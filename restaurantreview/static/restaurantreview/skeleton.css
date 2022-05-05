@@ -216,9 +216,9 @@ html {
 body {
     font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
     line-height: 1.6;
-    font-weight: 400;
+    font-weight: 450;
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #2a2ad5;
+    color: #6e6ef3;
 }
 
 
@@ -305,7 +305,7 @@ a {
 }
 
 a:hover {
-    color: #2a2ad5;
+    color: #8181f5;
 }
 
 
@@ -345,7 +345,7 @@ button:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
-    color: #2a2ad5;
+    color: #dadaf5;
     border-color: #888;
     outline: 0;
 }
@@ -355,9 +355,9 @@ button.button-primary,
 input[type="submit"].button-primary,
 input[type="reset"].button-primary,
 input[type="button"].button-primary {
-    color: #2a2ad5;
-    background-color: #2a2ad5;
-    border-color: #2a2ad5;
+    color: #6e6ef3;
+    background-color: #a7a7f3;
+    border-color: #8282d7;
 }
 
 .button.button-primary:hover,
@@ -370,9 +370,9 @@ button.button-primary:focus,
 input[type="submit"].button-primary:focus,
 input[type="reset"].button-primary:focus,
 input[type="button"].button-primary:focus {
-    color: #FFF;
-    background-color: #2a2ad5;
-    border-color: #2a2ad5;
+    color: #6e6ef3;
+    background-color: #9b9be5;
+    border-color: #8888f3;
 }
 
 
@@ -389,7 +389,7 @@ textarea,
 select {
     height: 38px;
     padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
-    background-color: #2a2ad5;
+    background-color: #8686f6;
     border: 1px solid #D1D1D1;
     border-radius: 4px;
     box-shadow: none;
@@ -488,7 +488,7 @@ code {
     margin: 0 .2rem;
     font-size: 90%;
     white-space: nowrap;
-    background: #2a2ad5;
+    background: #ababf3;
     border: 1px solid #E1E1E1;
     border-radius: 4px;
 }
@@ -574,7 +574,7 @@ hr {
     margin-top: 3rem;
     margin-bottom: 3.5rem;
     border-width: 0;
-    border-top: 1px solid #2a2ad5;
+    border-top: 1px solid #b9b9f6;
 }
 
 
