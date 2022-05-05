@@ -104,8 +104,6 @@ class RestaurantDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
     def get(self, request, pk):
         restaurant = get_object_or_404(Restaurant, pk=pk)
-        # registrations = section.registrations.all()
-        # dines = restaurant.dines.all()
         locations = restaurant.locations.all()
         if locations.count() > 0:
             return render(

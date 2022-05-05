@@ -62,7 +62,7 @@ class Restaurant(models.Model):
 
 class Recipe(models.Model):
     recipe_id = models.AutoField(primary_key=True)
-    ingredients = models.CharField(max_length=55, default='')
+    ingredients = models.CharField(max_length=155, default='')
 
     def __str__(self):
         return '%s' % self.ingredients

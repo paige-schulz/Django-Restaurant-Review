@@ -15,11 +15,10 @@
     {% endblock %}
     <ol>
         {% for recipe in recipe_list %}
-            <li>
+
             <li>
                 <a href="{{ recipe.get_absolute_url }}">
                     {{ recipe }}</a>
-            </li>
             </li>
         {% empty %}
             <li><em> There are no recipes.</em></li>

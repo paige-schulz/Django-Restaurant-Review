@@ -16,11 +16,6 @@
                 <li><a href="{{ location.get_absolute_url }}">{{ location }}</a></li>
             {% endfor %}
         </ul>
-        {#        <ul>#}
-        {#            {% for dine in dines %}#}
-        {#                <li><a href="{{ dine.get_absolute_url }}">{{ dine }}</a></li>#}
-        {#            {% endfor %}#}
-        {#        </ul>#}
 
         <p>
             Return to <a href="{% url 'restaurantreview_restaurant_list_urlpattern' %}">Restaurant List</a>.
